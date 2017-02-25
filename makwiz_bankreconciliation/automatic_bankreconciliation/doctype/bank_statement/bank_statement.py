@@ -57,7 +57,7 @@ class BankStatement(Document):
 		for d in entries:
 			row = self.append('payment_entries', {})			
 			d.amount = fmt_money(d.debit if d.debit else d.credit, 2, d.account_currency) + " " + (_("Dr") if d.debit else _("Cr"))			
-			d.transaction_type = (_("DR") if d.debit else _("CR"))
+			d.transaction_type = (("DR") if d.debit else ("CR"))
 			d.transaction_amount = (d.debit if d.debit else d.credit)
 			for dd in self.get('bank_statement_detail'):		
 				if(dd.transaction_type.upper() == d.transaction_type.upper() and round(float(dd.transaction_amount),2) == round(float(d.transaction_amount),2) and dd.serial_number == d.cheque_number):
