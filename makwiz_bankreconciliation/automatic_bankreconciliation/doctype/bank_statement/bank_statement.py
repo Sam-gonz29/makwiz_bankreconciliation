@@ -77,11 +77,7 @@ class BankStatement(Document):
 				if d.cheque_date and getdate(d.clearance_date) < getdate(d.cheque_date):
 					frappe.throw(_("Row #{0}: Clearance date {1} cannot be before Cheque Date {2}")
 						.format(d.idx, d.clearance_date, d.cheque_date))
-
-			if d.clearance_date or self.include_reconciled_entries:
-				if not d.clearance_date:
-					d.clearance_date = None
-
+						
 				frappe.db.set_value(d.payment_document, d.payment_entry, "clearance_date", d.clearance_date)
 				frappe.db.sql("""update `tab{0}` set clearance_date = %s, modified = %s 
 					where name=%s""".format(d.payment_document), 
