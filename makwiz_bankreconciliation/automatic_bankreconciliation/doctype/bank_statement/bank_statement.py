@@ -60,7 +60,7 @@ class BankStatement(Document):
 			d.transaction_type = (_("DR") if d.debit else _("CR"))
 			d.transaction_amount = (d.debit if d.debit else d.credit)
 			for dd in self.get('bank_statement_detail'):		
-				if(dd.transaction_type == d.transaction_type.upper() and round(float(dd.transaction_amount),2) == round(float(d.transaction_amount),2) and dd.serial_number == d.cheque_number):
+				if(dd.transaction_type.upper() == d.transaction_type.upper() and round(float(dd.transaction_amount),2) == round(float(d.transaction_amount),2) and dd.serial_number == d.cheque_number):
 					d.clearance_date = dd.clearance_date		
 			row.update(d)			
 
